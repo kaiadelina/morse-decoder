@@ -38,7 +38,16 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    const morseWords = expr.split('**********'); // Разделяем слова
+    const decodedMessage = morseWords.map(word => {
+        const morseChars = word.match(/.{1,10}/g); // Разбиваем слово на символы
+        const decodedWord = morseChars.map(char => {
+            const morseChar = char.replace(/00/g, '').replace(/10/g, '.').replace(/11/g, '-');
+            return MORSE_TABLE[morseChar];
+        });
+        return decodedWord.join('');
+    });
+    return decodedMessage.join(' ');
 }
 
 module.exports = {
